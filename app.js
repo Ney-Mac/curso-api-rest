@@ -1,20 +1,29 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
 const rotaProdutos = require('./routes/produtos');
 const rotaPedidos = require('./routes/pedidos');
 
+app.use(morgan('dev'));
+
 app.use('/produtos', rotaProdutos);
 app.use('/pedidos', rotaPedidos);
 
-/*app.use('/teste', (req, res, next) => {
-    //req -> request - requisição
-    //res -> response - resposta
-    //next -> para chamar outro método
+//Tratamento de erro para rota não encontrada
+app.use((req, res, next) => {
+    const erro = new Error('Não encontrado');
+    erro.status = 404;
+    next(erro);
+});
 
-    res.status(200).send({
-        mensagem: 'Ok, deu certo'
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    return res.send({
+        erro: {
+            mensagem: error.message
+        }
     })
-});*/
+});
 
 module.exports = app;
