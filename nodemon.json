@@ -1,0 +1,9 @@
+{
+    "env": {
+        "MYSQL_USER": "root",
+        "MYSQL_PASSWORD": "NeyCarioM@gmail.com.2000",
+        "MYSQL_DATABASE": "curso_api_rest",
+        "MYSQL_HOST": "localhost",
+        "MYSQL_PORT": 3306
+    }
+}
